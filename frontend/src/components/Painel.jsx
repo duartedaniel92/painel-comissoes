@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Cores from "./Cores.jsx";
 import {
   ResponsiveContainer,
   LineChart,
@@ -63,6 +64,8 @@ export default function Painel() {
         <h1>Painel Principal</h1>
         <p>Visão geral da operação — respostas em segundos, não em relatórios.</p>
       </div>
+
+      <Cores />
 
       <div className="cards-grid">
         <Card label="Faturamento bruto do dia" valor={cards.faturamentoBrutoDia} />
