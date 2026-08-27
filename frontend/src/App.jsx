@@ -3,12 +3,14 @@ import Painel from "./components/Painel.jsx";
 import Vendedores from "./components/Vendedores.jsx";
 import Regras from "./components/Regras.jsx";
 import Auditoria from "./components/Auditoria.jsx";
+import Exportar from "./components/Exportar.jsx";
 
 const PAGINAS = [
   { id: "painel", nome: "Painel Principal", Componente: Painel },
   { id: "vendedores", nome: "Vendedores", Componente: Vendedores },
   { id: "regras", nome: "Regras de Comissão", Componente: Regras },
   { id: "auditoria", nome: "Auditoria", Componente: Auditoria },
+  { id: "exportar", nome: "Exportar", Componente: Exportar },
 ];
 
 export default function App() {

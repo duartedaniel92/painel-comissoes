@@ -3,6 +3,7 @@ import cors from "cors";
 
 import { montarPainel } from "./src/painel.js";
 import { obterRegras, atualizarRegra } from "./src/regras.js";
+import { calcularComissao } from "./src/comissao.js";
 import { dados } from "./src/dados.js";
 import {
   listarVendedores,
@@ -76,6 +77,50 @@ app.put("/api/rules/meta", (req, res) => {
 
 app.get("/api/audit", (req, res) => {
   res.json(dados.auditoria);
+});
+
+// ---------- Exportação ----------
+
+app.get("/api/export/folha.csv", (req, res) => {
+  const cabecalho = [
+    "Vendedor",
+    "Função",
+    "Filial",
+    "Meta Mensal",
+    "Faturamento no Mês",
+    "% da Meta",
+    "Taxa Aplicada (%)",
+    "Bônus Fixo",
+    "Comissão Total",
+  ];
+
+  const linhas = dados.vendedores.map((vendedor) => {
+    const comissao = calcularComissao(
+      vendedor.faturamentoMes,
+      vendedor.metaMensal,
+      dados.regraComissao
+    );
+
+    return [
+      vendedor.nome,
+      vendedor.funcao,
+      vendedor.filial,
+      vendedor.metaMensal,
+      vendedor.faturamentoMes,
+      comissao.percentualMeta,
+      comissao.taxaAplicada,
+      comissao.bonusFixo,
+      comissao.comissaoTotal,
+    ].join(";");
+  });
+
+  // o BOM faz o Excel em portugues abrir o arquivo com a acentuacao correta
+  const BOM = "\uFEFF";
+  const csv = BOM + [cabecalho.join(";"), ...linhas].join("\n");
+
+  res.setHeader("Content-Type", "text/csv; charset=utf-8");
+  res.setHeader("Content-Disposition", 'attachment; filename="folha-comissoes.csv"');
+  res.send(csv);
 });
 
 app.listen(PORTA, () => {
