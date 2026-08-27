@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import NovoVendedor from "./NovoVendedor.jsx";
+import DetalheVendedor from "./DetalheVendedor.jsx";
 
 const moeda = (v) => Number(v || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 const percentual = (v) => `${Number(v || 0).toFixed(1)}%`;
@@ -20,6 +22,9 @@ export default function Vendedores() {
   const [ordenarPor, setOrdenarPor] = useState("faturamentoMes");
   const [direcao, setDirecao] = useState("desc");
   const [erro, setErro] = useState("");
+  const [selecionado, setSelecionado] = useState(null);
+  const [mostrarNovo, setMostrarNovo] = useState(false);
+  const [recarregar, setRecarregar] = useState(0);
 
   useEffect(() => {
     const parametros = new URLSearchParams({ busca, ordenarPor, direcao });
@@ -28,7 +33,7 @@ export default function Vendedores() {
       .then((resposta) => resposta.json())
       .then(setVendedores)
       .catch(() => setErro("Não consegui carregar a equipe."));
-  }, [busca, ordenarPor, direcao]);
+  }, [busca, ordenarPor, direcao, recarregar]);
 
   const alternarOrdenacao = (coluna) => {
     if (ordenarPor === coluna) {
@@ -57,6 +62,9 @@ export default function Vendedores() {
           onChange={(e) => setBusca(e.target.value)}
           aria-label="Buscar vendedores"
         />
+        <button type="button" className="btn" onClick={() => setMostrarNovo(true)}>
+          + Novo vendedor
+        </button>
       </div>
 
       <div className="panel sem-padding">
@@ -82,6 +90,9 @@ export default function Vendedores() {
                     </button>
                   </th>
                 ))}
+                <th scope="col">
+                  <span className="sr-only">Ações</span>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -97,12 +108,22 @@ export default function Vendedores() {
                   <td>{percentual(vendedor.percentualMeta)}</td>
                   <td>{moeda(vendedor.comissaoTotal)}</td>
                   <td>{percentualDecimal(vendedor.conversao)}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="acao-editar"
+                      onClick={() => setSelecionado(vendedor.id)}
+                      aria-label={`Editar ${vendedor.nome}`}
+                    >
+                      <span aria-hidden="true">editar ›</span>
+                    </button>
+                  </td>
                 </tr>
               ))}
 
               {vendedores.length === 0 && (
                 <tr>
-                  <td colSpan={COLUNAS.length + 1} className="tabela-vazia">
+                  <td colSpan={COLUNAS.length + 2} className="tabela-vazia">
                     {busca
                       ? `Nenhum vendedor encontrado para "${busca}".`
                       : "Nenhum vendedor cadastrado."}
@@ -113,6 +134,21 @@ export default function Vendedores() {
           </table>
         </div>
       </div>
+
+      {selecionado && (
+        <DetalheVendedor
+          vendedorId={selecionado}
+          onClose={() => setSelecionado(null)}
+          onAlterado={() => setRecarregar((n) => n + 1)}
+        />
+      )}
+
+      {mostrarNovo && (
+        <NovoVendedor
+          onClose={() => setMostrarNovo(false)}
+          onCriado={() => setRecarregar((n) => n + 1)}
+        />
+      )}
     </>
   );
 }
