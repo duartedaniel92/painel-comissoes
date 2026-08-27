@@ -1,7 +1,11 @@
 import { useState } from "react";
 import Painel from "./components/Painel.jsx";
+import Vendedores from "./components/Vendedores.jsx";
 
-const PAGINAS = [{ id: "painel", nome: "Painel Principal", Componente: Painel }];
+const PAGINAS = [
+  { id: "painel", nome: "Painel Principal", Componente: Painel },
+  { id: "vendedores", nome: "Vendedores", Componente: Vendedores },
+];
 
 export default function App() {
   const [paginaAtual, setPaginaAtual] = useState("painel");
