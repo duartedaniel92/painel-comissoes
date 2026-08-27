@@ -123,6 +123,12 @@ app.get("/api/export/folha.csv", (req, res) => {
   res.send(csv);
 });
 
-app.listen(PORTA, () => {
-  console.log(`API rodando em http://localhost:${PORTA}`);
-});
+export default app;
+
+// só sobe a porta quando o arquivo é executado direto: os testes importam o
+// app e abrem uma porta efêmera por conta própria
+if (process.argv[1]?.endsWith("server.js")) {
+  app.listen(PORTA, () => {
+    console.log(`API rodando em http://localhost:${PORTA}`);
+  });
+}
