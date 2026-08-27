@@ -1,0 +1,7 @@
+# O Prettier exige LF, mas o git no Windows costuma converter para CRLF no
+# checkout. Sem isto, `npm run format:check` falha em arquivo que ninguém
+# editou, e a falha depende da máquina.
+* text=auto eol=lf
+
+# Scripts .bat são executados pelo cmd.exe, que espera CRLF.
+*.bat text eol=crlf
