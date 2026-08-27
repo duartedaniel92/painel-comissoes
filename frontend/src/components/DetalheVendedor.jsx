@@ -51,7 +51,9 @@ export default function DetalheVendedor({ vendedorId, onClose, onAlterado }) {
       return;
     }
 
-    setVendedor(corpo);
+    // o PUT devolve o vendedor sem as vendas, porque elas não mudaram —
+    // trocar o objeto inteiro sumiria com a lista
+    setVendedor({ ...corpo, vendas: vendedor.vendas });
     setMensagem("Alterações salvas.");
     onAlterado();
   };
