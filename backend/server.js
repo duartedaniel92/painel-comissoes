@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 
 import { montarPainel } from "./src/painel.js";
+import { obterRegras, atualizarRegra } from "./src/regras.js";
 import {
   listarVendedores,
   buscarVendedor,
@@ -56,6 +57,18 @@ app.delete("/api/sellers/:id", (req, res) => {
     return res.status(404).json({ erro: "Vendedor não encontrado" });
   }
   res.json({ ok: true });
+});
+
+// ---------- Regras de comissão ----------
+
+app.get("/api/rules", (req, res) => {
+  res.json(obterRegras());
+});
+
+app.put("/api/rules/meta", (req, res) => {
+  const { erros, regraComissao } = atualizarRegra(req.body, req.body.usuario);
+  if (erros) return res.status(400).json({ erro: erros.join(". ") });
+  res.json({ regraComissao });
 });
 
 app.listen(PORTA, () => {

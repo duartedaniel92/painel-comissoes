@@ -1,10 +1,12 @@
 import { useState } from "react";
 import Painel from "./components/Painel.jsx";
 import Vendedores from "./components/Vendedores.jsx";
+import Regras from "./components/Regras.jsx";
 
 const PAGINAS = [
   { id: "painel", nome: "Painel Principal", Componente: Painel },
   { id: "vendedores", nome: "Vendedores", Componente: Vendedores },
+  { id: "regras", nome: "Regras de Comissão", Componente: Regras },
 ];
 
 export default function App() {
