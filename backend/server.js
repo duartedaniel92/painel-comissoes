@@ -3,6 +3,7 @@ import cors from "cors";
 
 import { montarPainel } from "./src/painel.js";
 import { obterRegras, atualizarRegra } from "./src/regras.js";
+import { dados } from "./src/dados.js";
 import {
   listarVendedores,
   buscarVendedor,
@@ -69,6 +70,12 @@ app.put("/api/rules/meta", (req, res) => {
   const { erros, regraComissao } = atualizarRegra(req.body, req.body.usuario);
   if (erros) return res.status(400).json({ erro: erros.join(". ") });
   res.json({ regraComissao });
+});
+
+// ---------- Auditoria ----------
+
+app.get("/api/audit", (req, res) => {
+  res.json(dados.auditoria);
 });
 
 app.listen(PORTA, () => {
