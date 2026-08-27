@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 
+import { montarPainel } from "./src/painel.js";
 import {
   listarVendedores,
   buscarVendedor,
@@ -17,6 +18,12 @@ app.use(express.json());
 
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
+});
+
+// ---------- Painel ----------
+
+app.get("/api/dashboard", (req, res) => {
+  res.json(montarPainel());
 });
 
 // ---------- Vendedores ----------
