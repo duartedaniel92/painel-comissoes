@@ -90,14 +90,29 @@ Dezessete testes (12 na API com o Node Test Runner, 5 na interface com Vitest):
 
 ## Screenshots
 
-<!-- Ainda sem imagens. Salvar os prints em docs/images/ e trocar cada marcador pela imagem. -->
+**Painel principal** — cards, tendência intradia e projeção do mês
 
-- [ ] Painel principal (cards, tendência intradia e projeção do mês) — `docs/images/painel.png`
-- [ ] Mesa de performance com busca e ordenação — `docs/images/vendedores.png`
-- [ ] Ficha do vendedor (edição) — `docs/images/detalhe-vendedor.png`
-- [ ] Central de regras — `docs/images/regras.png`
-- [ ] Auditoria — `docs/images/auditoria.png`
-- [ ] Exportação CSV — `docs/images/exportar.png`
+![Painel principal](docs/images/painel.png)
+
+**Mesa de performance** — busca e ordenação da equipe
+
+![Mesa de performance](docs/images/vendedores.png)
+
+**Ficha do vendedor** — comissão detalhada e edição
+
+![Ficha do vendedor](docs/images/detalhe-vendedor.png)
+
+**Central de regras** — taxas e faixas de bônus editáveis, com simulação
+
+![Central de regras](docs/images/regras.png)
+
+**Auditoria** — registro de cada alteração
+
+![Auditoria](docs/images/auditoria.png)
+
+**Exportação** — prévia da folha de comissões em CSV
+
+![Exportação CSV](docs/images/exportar.png)
 
 ## Próximos passos
 
@@ -105,3 +120,7 @@ Dezessete testes (12 na API com o Node Test Runner, 5 na interface com Vitest):
 - **Autenticação** — hoje toda ação é registrada como "Gestor Carlos"; falta login e perfis.
 - **Deploy** — publicar em uma URL pública.
 - **Lançamento de vendas pela interface** — hoje as vendas do dia vêm dos dados de exemplo.
+
+---
+
+Desenvolvido por **Daniel Duarte** · [GitHub](https://github.com/duartedaniel92) · [LinkedIn](https://linkedin.com/in/duartedaniel92)
