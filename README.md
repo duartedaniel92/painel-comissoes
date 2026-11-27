@@ -90,14 +90,31 @@ Dezessete testes (12 na API com o Node Test Runner, 5 na interface com Vitest):
 
 ## Screenshots
 
-<!-- Ainda sem imagens. Salvar os prints em docs/images/ e trocar cada marcador pela imagem. -->
+Dados de demonstração que vêm com o projeto.
 
-- [ ] Painel principal (cards, tendência intradia e projeção do mês) — `docs/images/painel.png`
-- [ ] Mesa de performance com busca e ordenação — `docs/images/vendedores.png`
-- [ ] Ficha do vendedor (edição) — `docs/images/detalhe-vendedor.png`
-- [ ] Central de regras — `docs/images/regras.png`
-- [ ] Auditoria — `docs/images/auditoria.png`
-- [ ] Exportação CSV — `docs/images/exportar.png`
+**Painel principal** — cards do dia, tendência intradia com projeção e previsão de fechamento do mês.
+
+![Painel principal](docs/images/painel.png)
+
+**Mesa de performance** — busca por vendedor, função ou filial e ordenação por coluna.
+
+![Mesa de performance](docs/images/vendedores.png)
+
+**Ficha do vendedor** — comissão detalhada e edição dos dados.
+
+![Ficha do vendedor](docs/images/detalhe-vendedor.png)
+
+**Central de regras** — taxas, faixas de bônus e simulação.
+
+![Central de regras](docs/images/regras.png)
+
+**Auditoria**
+
+![Auditoria](docs/images/auditoria.png)
+
+**Exportação** — prévia da folha e download em CSV.
+
+![Exportação da folha](docs/images/exportar.png)
 
 ## Próximos passos
 
