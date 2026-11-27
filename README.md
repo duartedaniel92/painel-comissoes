@@ -2,6 +2,8 @@
 
 Painel web para o gerente de uma loja de varejo acompanhar o desempenho da equipe de vendas e calcular a comissão de cada vendedor.
 
+**Deploy:** ainda não publicado. Roda só localmente (veja [Como rodar](#como-rodar)).
+
 ## O problema
 
 Em loja pequena, o controle de comissão costuma viver numa planilha. Isso traz três dores:
@@ -18,7 +20,7 @@ O painel resolve os três: calcula a comissão automaticamente, mostra o desempe
 
 | Camada    | Tecnologia                                 |
 | --------- | ------------------------------------------ |
-| Frontend  | React 19 + Vite 7, gráficos com Recharts   |
+| Frontend  | React 19 + Vite 7, gráficos com Recharts 3 |
 | Backend   | Node.js + Express 5 (API REST)             |
 | Dados     | Em memória, no próprio servidor            |
 | Estilo    | CSS puro com variáveis                     |
@@ -33,13 +35,23 @@ npm install
 npm run dev
 ```
 
-A interface abre em `http://localhost:5173` e a API sobe em `http://localhost:3001`.
+A interface abre em `http://localhost:5173` e a API sobe em `http://localhost:3001`. O Vite repassa as chamadas `/api` para a API, então não precisa configurar URL nem CORS.
+
+Outros comandos:
+
+```bash
+npm run build   # gera o frontend em frontend/dist
+npm run lint    # ESLint em backend e frontend
+npm start --workspace backend   # só a API, sem o modo watch
+```
 
 Os dados ficam na memória do servidor: **reiniciar volta tudo ao estado inicial.** É proposital — o projeto roda sem instalar banco nenhum.
 
 ## Funcionalidades
 
-**Painel principal** — faturamento do dia, comissões do mês, lucro estimado e ticket médio, com gráfico de tendência comparando o dia de hoje com a mesma semana anterior e uma projeção de fechamento do mês.
+**Painel principal** — faturamento do dia, comissões do mês, lucro estimado e ticket médio, com gráfico de tendência comparando o dia de hoje com a mesma semana anterior e uma projeção de fechamento do mês. As estimativas usam números fixos no código: margem de 55% para o lucro, 10 dias úteis restantes para a projeção do mês e +8% para a linha tracejada do dia.
+
+**Personalizar cores** — cinco paletas (incluindo uma clara) escolhidas no próprio painel. A escolha fica salva no navegador.
 
 **Mesa de performance** — a equipe em tabela, com busca por nome, função ou filial, e ordenação por qualquer coluna.
 
@@ -69,12 +81,23 @@ Os dados ficam na memória do servidor: **reiniciar volta tudo ao estado inicial
 npm test
 ```
 
-Quinze testes, nos caminhos que importam:
+Dezessete testes (12 na API com o Node Test Runner, 5 na interface com Vitest):
 
-- **Cálculo de comissão** nas quatro situações: abaixo da meta, na meta, em 110% e em 130%, mais o caso de quem quase alcançou a faixa e não recebe o bônus.
+- **Cálculo de comissão** nas quatro situações: abaixo da meta, na meta, em 110% e em 130%, mais o caso de quem quase alcançou a faixa e não recebe o bônus e o de quem não tem meta definida.
 - **Validação**: cadastro sem nome e com valor negativo é recusado.
 - **API**: a listagem traz a comissão calculada, id inexistente responde 404, faixa de bônus abaixo de 100% é recusada, e a exportação devolve CSV com cabeçalho de download.
-- **Interface**: a tabela mostra os vendedores e a comissão, e a busca envia o termo para a API.
+- **Interface**: a tabela mostra os vendedores e a comissão, a busca envia o termo para a API, e a ficha do vendedor mostra as vendas do dia e não quebra ao salvar.
+
+## Screenshots
+
+<!-- Ainda sem imagens. Salvar os prints em docs/images/ e trocar cada marcador pela imagem. -->
+
+- [ ] Painel principal (cards, tendência intradia e projeção do mês) — `docs/images/painel.png`
+- [ ] Mesa de performance com busca e ordenação — `docs/images/vendedores.png`
+- [ ] Ficha do vendedor (edição) — `docs/images/detalhe-vendedor.png`
+- [ ] Central de regras — `docs/images/regras.png`
+- [ ] Auditoria — `docs/images/auditoria.png`
+- [ ] Exportação CSV — `docs/images/exportar.png`
 
 ## Próximos passos
 
