@@ -2,6 +2,8 @@
 
 Painel web para o gerente de uma loja de varejo acompanhar o desempenho da equipe de vendas e calcular a comissão de cada vendedor.
 
+![Painel principal: faturamento do dia, comissões do mês e tendência intradia com projeção](docs/images/painel.png)
+
 ## O problema
 
 Em loja pequena, o controle de comissão costuma viver numa planilha. Isso traz três dores:
@@ -43,6 +45,8 @@ Os dados ficam na memória do servidor: **reiniciar volta tudo ao estado inicial
 
 **Mesa de performance** — a equipe em tabela, com busca por nome, função ou filial, e ordenação por qualquer coluna.
 
+![Mesa de performance: vendedores com faturamento, % da meta e comissão](docs/images/vendedores.png)
+
 **Cadastro e edição** — adicionar, editar e remover vendedores. A comissão é recalculada a cada alteração.
 
 **Central de regras** — as taxas e as faixas de bônus são editáveis pela interface, sem mexer em código.
@@ -69,12 +73,12 @@ Os dados ficam na memória do servidor: **reiniciar volta tudo ao estado inicial
 npm test
 ```
 
-Quinze testes, nos caminhos que importam:
+Dezessete testes, nos caminhos que importam:
 
-- **Cálculo de comissão** nas quatro situações: abaixo da meta, na meta, em 110% e em 130%, mais o caso de quem quase alcançou a faixa e não recebe o bônus.
+- **Cálculo de comissão** nas quatro situações: abaixo da meta, na meta, em 110% e em 130%, mais o caso de quem quase alcançou a faixa e não recebe o bônus e o de vendedor sem meta definida.
 - **Validação**: cadastro sem nome e com valor negativo é recusado.
 - **API**: a listagem traz a comissão calculada, id inexistente responde 404, faixa de bônus abaixo de 100% é recusada, e a exportação devolve CSV com cabeçalho de download.
-- **Interface**: a tabela mostra os vendedores e a comissão, e a busca envia o termo para a API.
+- **Interface**: a tabela mostra os vendedores e a comissão, a busca envia o termo para a API, e o detalhe do vendedor mostra as vendas do dia e não quebra ao salvar.
 
 ## Próximos passos
 
@@ -82,3 +86,7 @@ Quinze testes, nos caminhos que importam:
 - **Autenticação** — hoje toda ação é registrada como "Gestor Carlos"; falta login e perfis.
 - **Deploy** — publicar em uma URL pública.
 - **Lançamento de vendas pela interface** — hoje as vendas do dia vêm dos dados de exemplo.
+
+---
+
+Desenvolvido por **Daniel Duarte** · [GitHub](https://github.com/duartedaniel92) · [LinkedIn](https://linkedin.com/in/duartedaniel92)
